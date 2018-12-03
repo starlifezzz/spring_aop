@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.UserMapper">
+
+    <resultMap id="alluser" type="com.example.demo1.entity.User">
+        <id column="u_id" property="u_id"></id>
+        <result column="u_username" property="u_username"></result>
+        <result column="u_password" property="u_password"></result>
+        <result column="u_nickname" property="u_nickname"></result>
+        <result column="u_photo" property="u_photopath"></result>
+    </resultMap>
+
+    <resultMap id="allArticle" type="com.example.demo1.entity.Article">
+        <id column="a_id" property="a_id"></id>
+        <id column="u_id" property="u_id"></id>
+        <id column="w_countentsize" property="wcountentsize"></id>
+
+        <result column="w_id" property="w_id"></result>
+        <result column="w_title" property="w_title"></result>
+        <result column="w_content" property="w_content"></result>
+        <result column="w_browsesize" property="wbrowsesize"></result>
+    </resultMap>
+
+
+    <select id="selectName" resultMap="alluser">
+        select *
+        from hurtfriend.`user`
+        where u_username = #{username}
+    </select>
+
+
+    <select id="selectUserAll" resultMap="alluser">
+        select *
+        from User
+    </select>
+
+    <!--查询所有帖子-->
+    <select id="selectArticleAll" resultMap="allArticle">
+        select *
+        from Article
+        order by a_id desc
+    </select>
+
+
+    <select id="selectView" resultMap="allArticle">
+        select *
+        from Article
+        where a_id = #{a_id}
+    </select>
+
+
+    <select id="selectUser" resultMap="alluser">
+        select *
+        from User
+        where u_username = #{jj}
+          and u_password = #{pwd}
+    </select>
+
+    <!--根据comment people查询nickname-->
+    <select id="selectPeopleId" resultMap="alluser">
+
+        select *
+        from user u
+                 inner join comment c on c.c_people = u.u_id
+        where c_people = #{cpeople}
+          and c_id = #{cid}
+    </select>
+    <!--修改个人信息-->
+    <update id="updateUserPersonal">
+        update user
+        set u_nickname=#{u_nickname},
+            u_photo=#{u_photo}
+        where u_id = #{u_id}
+    </update>
+
+    <!--假删除评论-->
+    <update id="delcommentbycommentid">
+        UPDATE comment as c
+        SET c
+            .
+            c_delflag=
+            1
+        WHERE c.c_id=#{commentid}
+    </update>
+
+</mapper>
+
+
+
+
+
