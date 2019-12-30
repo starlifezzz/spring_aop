@@ -77,7 +77,9 @@ public class UserServiceimpl implements UserService {
     @DoSomeThing(account = "#username", id = "#password")
     public User listUser(String username, String password) {
         System.out.println("------in------");
+        username="我已经篡改了";
         return userMapper.selectUser(username, password);
+//        return new User();
     }
 
 

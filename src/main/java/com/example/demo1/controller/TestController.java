@@ -18,7 +18,8 @@ public class TestController {
 
     @RequestMapping("/fuck")
     @ResponseBody
-    public User kk() {
+    @DoSomeThing(id = "#id",account = "#account")
+    public User kk(int id,String account) {
         Class userservice = UserServiceimpl.class;
         Class DoSomeThing = DoSomeThing.class;
         Method[] methods = userservice.getMethods();

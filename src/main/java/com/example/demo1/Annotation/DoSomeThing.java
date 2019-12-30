@@ -8,15 +8,15 @@ import java.lang.annotation.Target;
 
 
 /**
- *自定义元注解
+ * 自定义元注解
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DoSomeThing {
 
-    String id();
+    String id() default "";
 
-    String account();
+    String account() default "";
 
 
 }

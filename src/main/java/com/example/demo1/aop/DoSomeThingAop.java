@@ -53,12 +53,16 @@ public class DoSomeThingAop {
         return proceed;
     }
 
+
     //根据自定义注解中key值来取内容
     private String getkey(String key, ProceedingJoinPoint point) {
-        //从point中获取方法
-        Method signature = ((MethodSignature) point.getSignature()).getMethod();
-        //获取方法的参数名(冷门知识点)
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(signature);
-        return SperParser.getkey(key, parameterNames, point.getArgs());
+        if (!key.isEmpty()) {
+            //从point中获取方法
+            Method signature = ((MethodSignature) point.getSignature()).getMethod();
+            //获取方法的参数名(冷门知识点)
+            String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(signature);
+            return SperParser.getkey(key, parameterNames, point.getArgs());
+        }
+        return null;
     }
 }
